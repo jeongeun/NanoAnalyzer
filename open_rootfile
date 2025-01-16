@@ -1,0 +1,35 @@
+import sys
+import os
+
+import uproot4 as up
+import numpy as np
+import awkward as ak
+import matplotlib.pyplot as plt
+import mplhep as hep
+
+file = up.open("WZAToLNuLLA_4f_NanoAOD2022.root")
+infile = file["Events"]
+
+#tau_branches = [branch for branch in infile.keys() if branch.startswith("Tau")]
+branches = ["Tau_pt","Tau_phi","MET_pt","MET_phi"]
+
+my_branch = infile.arrays(branches)
+
+print(my_branch["Tau_pt"]) # only tau pt branch
+print(my_branch[0]) # information of first events in branch list
+
+tau_pt = ak.flatten(my_branch["Tau_pt"])
+MET_pt = my_branch["MET_pt"]
+
+plt.style.use(hep.style.ROOT)
+plt.figure(figsize=(10,8))
+plt.style.use(hep.style.ROOT)
+hep.cms.label(llabel='Work in progress', rlabel='', loc=0)
+plt.hist(tau_pt,bins=np.arange(0,1200+40,40),histtype='step',label="Tau pt")
+plt.hist(MET_pt,bins=np.arange(0,1200+40,40),histtype='step',label="MET")
+plt.yscale('log')
+plt.xlim(0,1200)
+plt.xlabel("pt [GeV]")
+plt.ylabel("Number of Events(/20 GeV)")
+plt.legend()
+plt.show()
