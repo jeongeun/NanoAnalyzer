@@ -29,9 +29,8 @@ The main program (`src/Main.cc`) receives the configuration parameters (such as 
 Follow these steps to set up your environment and repositories: (worked in KNU_T3)
 
 ```bash
-# Clone the necessary repositories
-git clone https://github.com/jeongeun/NanoAnalyzer.git
-
+# Clone nanoanalyzer_v0 branch in the necessary repositories 
+git clone -b nanoanalyzer_v0 --single-branch https://github.com/jeongeun/NanoAnalyzer.git
 
 # Change directory to NanoAnalyzer
 cd NanoAnalyzer
