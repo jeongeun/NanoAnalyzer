@@ -1,6 +1,158 @@
-# NanoAnalyzer Framework Guide
+## NanoAnalyzer
 
 This repository allows collaborative development and analysis of NanoAOD datasets. Follow the steps below to clone, configure, and contribute to the repository.
+
+---
+
+### Introduction
+
+This guide outlines the steps required to implement the analysis workflow specifically using skimmed nanoAOD datasets. 
+
+It will be covers the process from running the tree analyzer to plotting distributions and generating templates for Combine.
+
+This is no need CMSSW.
+
+ `NanoDataLoader Class` provides the methods that are common to all analysis, such as the method to read a list of root files and form a chain. It also provides a method to read a list of selection cuts.
+
+The class `NanoAnalyzer Class` (`include/NanoAnalyzer.h` and `src/NanoAnalyzer.cc`) inherits from `NanoDataLoader Class`.
+
+The user's code should be placed in the method `Loop()` of `NanoAnalyzer Class`.
+
+The main program (`src/Main.cc`) receives the configuration parameters (such as the input chain of root files and a file to provide a cut list) and executes the `NanoAnalyzer Class` code.
+
+---
+
+### Instructions
+
+#### Environment Setting
+
+Follow these steps to set up your environment and repositories: (worked in KNU_T3)
+
+```bash
+# Clone the necessary repositories
+git clone https://github.com/jeongeun/NanoAnalyzer.git
+
+
+# Change directory to NanoAnalyzer
+cd NanoAnalyzer
+
+# Run the environment setup (this sets up g++, ROOT, Python, and corrections)
+./setup.sh
+```
+---
+
+#### Execution Guide
+
+To run the analysis, execute as following:
+
+```bash
+# Build and Install in CMake
+./cmakeBuild.sh
+
+# For the Locally test
+cd test/
+
+# Execute the analysis 
+# It contains 10 arguments
+#../install/bin/NanoAnalysis  {input.root or input.list}  {era}  {process name}  {isMC}  {DoPU}  {DoRocco}  {DoID}  {DoISO}  {DoHLT}  {output.root}
+# Data example
+../install/bin/NanoAnalysis /PATH/Muon_Run2022C/tree_0.root  2022preEE Muon_Run2022C 0 0 0 0 0 0 mu_data.root
+
+# MC examples
+../install/bin/NanoAnalysis /PATH/DYto2L-2Jets_MLL-50/tree_0.root  2022preEE DYto2Mu_MLL-120to200 1 0 0 0 0 0 dy.root
+
+../install/bin/NanoAnalysis /PATH/DYto2L-2Jets_MLL-50/tree_0.root  2022preEE DYto2Mu_MLL-120to200 1 1 0 0 0 0 dy_pureweighting.root
+
+../install/bin/NanoAnalysis /PATH/DYto2L-2Jets_MLL-50/tree_0.root  2022preEE DYto2Mu_MLL-120to200 1 1 1 0 0 0 dy_pu_rocco.root
+
+../install/bin/NanoAnalysis /PATH/DYto2L-2Jets_MLL-50/tree_0.root  2022preEE DYto2Mu_MLL-120to200 1 1 1 1 1 1 dy_pu_rocco_id_iso_hlt.root
+
+../install/bin/NanoAnalysis ../input/2022preEE/DYto2L-2Jets_MLL-50/DYto2L-2Jets_MLL-50_0.list  2022preEE DYto2Mu_MLL-120to200 1 1 1 1 1 1 dy_pu_rocco_id_iso_hlt.root
+
+# check output histograms
+root -l mu_data.root
+```
+
+---
+
+#### Development Tips
+
+---
+
+#### Submitting batch Jobs on the Cluster
+
+For condor job submission
+
+```bash
+# Move to the condorJob directory
+cd condorJob/
+
+
+# make working directories and condor scripts for each process/correction type
+# usage: makeCondorScript.py [-h] -d outputDir [-e ERA] [-c {Base,PU,Rocco,ID,ISO,All}]
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c Base
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c PU
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c Rocco
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c ID
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c ISO
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c All
+
+# do condor_submit at once
+./submitall.sh condorOut/2022preEE
+
+# check condor_status
+condor_q 
+condor_tail [id].[process]
+
+# after finishing merge root files for every jobs
+./hadd.sh  condorOut/2022preEE
+
+```
+
+
+More to be updated here.
+
+
+---
+
+
+### Analyzer related ref
+- [PdmV Run-3](https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis)
+- [WorkBookMiniAOD](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD)
+- [WorkBookNanoAOD](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD)
+- [NanoAODTools (postproc)](https://github.com/cms-sw/cmssw/tree/master/PhysicsTools/NanoAODTools)
+- [NanoAOD-wiki@gitlab](https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/home)
+- [NanoAOD Contents](https://cms-nanoaod-integration.web.cern.ch/autoDoc/)
+- [CAT NANOTools](https://github.com/cms-cat/nanoAOD-tools-modules/tree/master)
+
+### POG related refs
+- [JsonPOG@gitlab](https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration)
+- [Muon-wiki](https://muon-wiki.docs.cern.ch/)
+- [MuonPOG](https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonPOG#References_for_advanced_users_an)
+- [Muon-Rochcor](https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon)
+- [Muon-SF](https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022)
+- [EGMPOG](https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPOG)
+- [EGM-SFnSS] (https://twiki.cern.ch/twiki/bin/view/CMS/EgammSFandSSRun3)
+- [NoiseFilter](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Run3_recommendations)
+- [MET XY corr](https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETRun2Corrections#xy_Shift_Correction_MET_phi_modu)
+- [JME POG](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#)
+- [Jet ID](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID)
+- [JES-JER-JetVetoMap](https://cms-jerc.web.cern.ch/Recommendations/)
+- [Tau ID Run-3](https://twiki.cern.ch/twiki/bin/view/CMS/TauIDRecommendationForRun3)
+
+### Useful refs
+- [CMS Lumi Pub](https://twiki.cern.ch/twiki/bin/view/CMSPublic/LumiPublicResults)
+- [Lumi Run-3](https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3)
+- [JSON](https://cms-service-dqmdc.web.cern.ch/CAF/certification/)
+- [PileupJSONforData](https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData)
+- [SM Xsec at 13.6TeV](https://twiki.cern.ch/twiki/bin/viewauth/CMS/MATRIXCrossSectionsat13p6TeV)
+- [LHC Higgs Xsec](https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsXSBR)
+- [CMS CADI search](https://cms.cern.ch/iCMS/analysisadmin/cadilines)
+- [iCMS-AN search](https://icms.cern.ch/tools/publications/notes/entries/AN/)
+- [T2KNU-manual] (https://t2-cms.knu.ac.kr/wiki/index.php/HTCondor)
+
+
+---
 
 ## How to Collaborate in the NanoAnalyzer Repository
 
@@ -57,28 +209,7 @@ cmsrel CMSSW_11_3_4
 cd CMSSW_11_3_4/src
 cmsenv
 ```
-## Install nanoAOD-tools and NATModules
-Install nanoAOD-tools and NATModules to process nanoAOD files and compile (build) everything.
-Note that starting from CMSSW 13_0_16, 13_1_5 and 13_3_0, a basic version of nanoAOD-tools is included. To install the standalone version, please do
-```bash
-cd $CMSSW_BASE/src/
-git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
-git clone git@github.com:cms-cat/nanoAOD-tools-modules.git PhysicsTools/NATModules
-scram b
-````
-## install the correctionlib 
-correction (SF) JSON files (https://github.com/cms-nanoAOD/correctionlib) provided by CMS into PhysicsTools/NATModules/data from the [cms-nanoAOD/jsonpog-integration](https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration) repository on GitLab.
-Alternatively, this repository is regularly synchronized to /cvmfs/, so if your system has access, you can copy the latest version
-```bash
-cd $CMSSW_BASE/src/PhysicsTools/NATModules
-git clone ssh://git@gitlab.cern.ch:7999/cms-nanoAOD/jsonpog-integration.git data
-or
-cd $CMSSW_BASE/src/PhysicsTools/NATModules
-cp -r /cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration data
-```
-## Testing Run a module
-To use in your own analysis, you can use the standalone scripts in [test](https://github.com/cms-cat/nanoAOD-tools-modules/tree/master/test) as an example. If you compiled this package correctly, you can import the modules in PhysicsTools/NATModules/python/modules as ```from PhysicsTools.NATModules.modules.muonSF import *```
-```bash
-cd $CMSSW_BASE/src/PhysicsTools/NATModules
-python3 ./test/example_muonSF.py -i root://cms-xrd-global.cern.ch//store/mc/RunIISummer20UL16NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/20UL16JMENano_106X_mcRun2_asymptotic_v17-v1/2820000/11061525-9BB6-F441-9C12-4489135219B7.root
-```
+
+
+
+

@@ -1,0 +1,61 @@
+# Clone the necessary repositories
+git clone ssh://git@gitlab.cern.ch:7999/cms-nanoAOD/jsonpog-integration.git
+
+### Centrally produced correctionlib files for pileup reweighting
+git clone https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/POG/LUM/2022_Summer22/puWeights.json.gz?ref_type=heads
+
+### Lumi Calculations
+### https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
+
+### https://twiki.cern.ch/twiki/bin/view/CMS/BrilcalcQuickStart
+
+> source /cvmfs/cms-bril.cern.ch/cms-lumi-pog/brilws-docker/brilws-env
+BRIL Work Suite should now be available.
+
+> which brilcalc
+> brilcalc --version
+
+### 2023
+
+> brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /fb -i [your json]
+
+> brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /fb --begin 366442 --end 370790
+
+### The total delivered (recorded) luminosity is 32.7357 (30.1028) 1/fb. These numbers are obtained with the following command (i.e. no certified json).
+
+
+### 2022
+
+> brilcalc lumi --normtag /cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/normtag_PHYSICS.json -u /fb -i [your json]
+
+### The total delivered luminosity is 41.47 1/fb, recorded 38.01 1/fb. The associated uncertainty is 1.4%.
+
+### pileup
+
+The preliminary recommended cross-section for Run 3 is 69.2 mb.
+The recommended cross-section for Run 2 is 69.2 mb
+
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/BCD/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-69200ub-99bins.root
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/BCD/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-66000ub-99bins.root
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/BCD/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-72400ub-99bins.root 
+
+
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/EFG/pileupHistogram-Cert_Collisions2022_359022_362760_eraEFG_GoldenJson-13p6TeV-69200ub-99bins.root
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/EFG/pileupHistogram-Cert_Collisions2022_359022_362760_eraEFG_GoldenJson-13p6TeV-66000ub-99bins.root
+wget https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/PileUp/EFG/pileupHistogram-Cert_Collisions2022_359022_362760_eraEFG_GoldenJson-13p6TeV-72400ub-99bins.root
+
+
+Creating MC Simulated Pileup histograms
+root makeHistPU.C
+
+pileup_2016_UL_MC_99bins.root*
+pileup_2017_UL_MC_99bins.root*
+pileup_2018_UL_MC_99bins.root*
+pileup_2022postEE_MC_99bins.root*
+pileup_2022preEE_MC_99bins.root*
+pileup_2023postBPix_MC_99bins.root*
+pileup_2023preBPix_MC_99bins.root*
+
+Data Pileup histogram 
+Downloaded from https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Pileup 

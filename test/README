@@ -1,0 +1,71 @@
+Test with proper arguments
+../install/bin/NanoAnalysis {input.root or input.list} {era} {process name} {isMC} {DoPU} {DoRocco} {DoID} {DoISO} {DoHLT} {output.root}
+
+(Example)
+$ ../install/bin/NanoAnalysis /X/Y/Z/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/tree_38.root  2022preEE DYto2Mu_MLL-120to200 1 1 1 1 1 1 inputroot.root
+
+---------------------------------------------------------
+[Info] Main.cc - Starting NanoAnalysis
+[Info] Input file list : /X/Y/Z/DYto2L-2Jets_MLL-50/tree_38.root
+[Info] Data Era : 2022preEE
+[Info] Process Name : DYto2Mu_MLL-120to200
+[Info] isMC : 1
+[Info] DoPUreweighting : 1
+[Info] DoRochesterCorrection : 1
+[Info] DoIDSF : 1
+[Info] DoIsoSF : 1
+[Info] DoTrigSF : 1
+[Info] Output file name: inputroot.root
+---------------------------------------------------------
+[Info] NanoAnalyzer::Init() - cData is defined
+[Info] NanoAnalyzer::Init() - cPU is defined
+[Info] NanoAnalyzer::Init() - cEfficiencySF is defined
+[Info] NanoAnalyzer::Init() - cRochesterCorrection is defined
+[Info] NanoDataLoader::Init() - Successfully added ROOT file: /X/Y/Z/tree_38.root (Entries: 516105)
+------------------------------------------------------------
+[Info] NanoDataLoader::LoadBranches() - Loading Branches ON
+------------------------------------------------------------
+--------------------------------------------------------------
+[Info] NanoDataLoader::PrintInitInfo() - Initializing ON
+[Info] NanoDataLoader::PrintInitInfo() - Total Num of Events: 0
+--------------------------------------------------------------
+----------------------------------------------------
+[Info] PU::PrintInitInfo() - Pileup is initialized
+[Info] PU::PrintInitInfo() - Era: 2022preEE
+[Info] PU::PrintInitInfo() - fileNameLUM: /cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2022_Summer22/puWeights.json.gz
+[Info] PU::PrintInitInfo() - Data PU (nominal)file: ../pileup/roots/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-69200ub-99bins.root
+[Info] PU::PrintInitInfo() - Data PU (up)file: ../pileup/roots/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-72400ub-99bins.root
+[Info] PU::PrintInitInfo() - Data PU (down)file: ../pileup/roots/pileupHistogram-Cert_Collisions2022_355100_357900_eraBCD_GoldenJson-13p6TeV-66000ub-99bins.root
+[Info] PU::PrintInitInfo() - MC PU file: ../pileup/roots/pileup_2022preEE_MC_99bins.root
+----------------------------------------------------
+----------------------------------------------------------
+[Info] EfficiencySF::PrintInitInfo() - EfficiencySF is initialized
+[Info] EfficiencySF::PrintInitInfo() - Era: 2022preEE
+[Info] EfficiencySF::PrintInitInfo() - JSON File: /cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/MUO/2022_Summer22/muon_Z.json.gz
+[Info] EfficiencySF::PrintInitInfo() - MUON ID key: NUM_HighPtID_DEN_TrackerMuons
+[Info] EfficiencySF::PrintInitInfo() - MUON ISO key: NUM_LooseRelTkIso_DEN_HighPtID
+[Info] EfficiencySF::PrintInitInfo() - MUON HLT key: NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose
+----------------------------------------------------------
+[Info] NanoAnalyzer::Init() - Tree nTotalEvents = 0
+[Info] NanoAnalyzer::Init() - Declar Histograms()
+-------------------------------------------------------------------------
+[Info] NanoAnalyzer::PrintInitInfo() - NanoAnalyzer is initialized
+[Info] NanoAnalyzer::PrintInitInfo() - Process name: DYto2Mu_MLL-120to200
+[Info] NanoAnalyzer::PrintInitInfo() - Era: 2022preEE
+[Info] NanoAnalyzer::PrintInitInfo() - Is MC: 1
+[Info] NanoAnalyzer::PrintInitInfo() - Do PU correction: 1
+[Info] NanoAnalyzer::PrintInitInfo() - Do ID SF: 1
+[Info] NanoAnalyzer::PrintInitInfo() - Do Iso SF: 1
+[Info] NanoAnalyzer::PrintInitInfo() - Do Trig SF: 1
+[Info] NanoAnalyzer::PrintInitInfo() - Do rocco correction: 1
+-------------------------------------------------------------------------
+[Info] NanoAnalyzer::Analyze() - Start event loop
+...
+...
+[Info] NanoAnalyzer::Analyze() - End of event loop
+[Info] NanoAnalyzer::Analyze() - Total sum of weight: 428745.45
+---------------------------------------------------------
+[SUCCESS] NanoAnalysis completed successfully!!
+[SUCCESS] Final outputs created in inputroot.root
+---------------------------------------------------------
+
