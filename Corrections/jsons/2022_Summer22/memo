@@ -1,0 +1,82 @@
+https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/MUO/2022_Summer22?ref_type=heads
+
+[jelee@cms 2022_Summer22]$ grep "\"name\": \"NUM_" muon_Z.json
+            "name": "NUM_LooseID_DEN_TrackerMuons",
+            "name": "NUM_MediumID_DEN_TrackerMuons",
+            "name": "NUM_MediumPromptID_DEN_TrackerMuons",
+            "name": "NUM_TightID_DEN_TrackerMuons",
+            "name": "NUM_SoftID_DEN_TrackerMuons",
+            "name": "NUM_HighPtID_DEN_TrackerMuons",
+            "name": "NUM_TrkHighPtID_DEN_TrackerMuons",
+            "name": "NUM_LoosePFIso_DEN_LooseID",
+            "name": "NUM_LoosePFIso_DEN_MediumID",
+            "name": "NUM_LoosePFIso_DEN_MediumPromptID",
+            "name": "NUM_LoosePFIso_DEN_TightID",
+            "name": "NUM_LooseRelTkIso_DEN_HighPtID",
+            "name": "NUM_LooseRelTkIso_DEN_TrkHighPtID",
+            "name": "NUM_TightPFIso_DEN_MediumID",
+            "name": "NUM_TightPFIso_DEN_MediumPromptID",
+            "name": "NUM_TightPFIso_DEN_TightID",
+            "name": "NUM_TightRelTkIso_DEN_HighPtID",
+            "name": "NUM_TightRelTkIso_DEN_TrkHighPtID",
+            "name": "NUM_LooseMiniIso_DEN_LooseID",
+            "name": "NUM_LooseMiniIso_DEN_MediumID",
+            "name": "NUM_MediumMiniIso_DEN_MediumID",
+            "name": "NUM_TightMiniIso_DEN_MediumID",
+            "name": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+            "name": "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight",
+            "name": "NUM_IsoMu24_or_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
+            "name": "NUM_IsoMu24_or_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdMedium_and_PFIsoMedium",
+            "name": "NUM_IsoMu24_or_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTight_and_PFIsoTight",
+            "name": "NUM_IsoMu24_or_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+            "name": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
+            "name": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+
+
+ID   : "NUM_HighPtID_DEN_TrackerMuons"
+Iso  : "NUM_LooseRelTkIso_DEN_HighPtID"
+Trig : "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose"
+"nodetype": "binning",
+"input": "eta",
+"edges": [
+    0.0,
+    0.9,
+    1.2,
+    2.1,
+    2.4
+],
+"content": [
+    {
+        "nodetype": "binning",
+        "input": "pt",
+        "edges": [
+            52.0,
+            56.0,
+            60.0,
+            120.0,
+            Infinity
+
+
+[jelee@cms 2022_Summer22]$ grep "\"name\": \"NUM_" muon_HighPt.json
+            "name": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
+            "name": "NUM_HighPtID_DEN_GlobalMuonProbes",
+            "name": "NUM_TrkHighPtID_DEN_GlobalMuonProbes",
+            "name": "NUM_probe_LooseRelTkIso_DEN_HighPtProbes",
+            "name": "NUM_probe_TightRelTkIso_DEN_HighPtProbes",
+            "name": "NUM_probe_LooseRelTkIso_DEN_TrkHighPtProbes",
+            "name": "NUM_probe_TightRelTkIso_DEN_TrkHighPtProbes",
+            "name": "NUM_TightID_DEN_GlobalMuonProbes",
+            "name": "NUM_MediumID_DEN_GlobalMuonProbes",
+            "name": "NUM_probe_LooseRelTkIso_DEN_MediumIDProbes",
+            "name": "NUM_probe_TightRelTkIso_DEN_MediumIDProbes",
+            "name": "NUM_HLT_DEN_TrkHighPtTightRelIsoProbes",
+            "name": "NUM_HLT_DEN_TrkHighPtLooseRelIsoProbes",
+            "name": "NUM_HLT_DEN_HighPtTightRelIsoProbes",
+            "name": "NUM_HLT_DEN_HighPtLooseRelIsoProbes",
+            "name": "NUM_HLT_DEN_MediumIDTightRelIsoProbes",
+            "name": "NUM_HLT_DEN_MediumIDLooseRelIsoProbes",
+
+RECO : "NUM_GlobalMuons_DEN_TrackerMuonProbes"
+ID   : "NUM_HighPtID_DEN_GlobalMuonProbes"
+Iso  : "NUM_probe_LooseRelTkIso_DEN_HighPtProbes"
+Trig : "NUM_HLT_DEN_HighPtLooseRelIsoProbes"
