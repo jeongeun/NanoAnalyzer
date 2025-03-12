@@ -1,8 +1,0 @@
-drop *
-drop HTXS*
-drop btag*
-drop *Jet*
-keep *Electron*
-keep *TrigObj*
-# skim HLT, for 2016
-keep HLT_Ele3*

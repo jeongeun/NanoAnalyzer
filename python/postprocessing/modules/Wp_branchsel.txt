@@ -1,7 +1,0 @@
-drop *
-keep *Electron*
-keep *PuppiMET*
-keep Flag_*
-# skim HLT, for 2016
-keep HLT_Ele115_*
-keep HLT_Photon200*
