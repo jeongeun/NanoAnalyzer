@@ -162,12 +162,13 @@ void NanoAnalyzer::Analyze() {
 
         hNPV->Fill(**(cData->NPV), eventWeight);
 
-        /////////////////////////////////////////////////
-        // Sum up event weight here (after all corrs) ///
-        /////////////////////////////////////////////////
-        dSumOfGenEvtWeight += eventWeight;
-        //cout << "[CHECKING] SumUp eventWeight after all correction dSumOfGenEvtWeight = " << dSumOfGenEvtWeight << endl; 
-
+        if( isMC ){
+            /////////////////////////////////////////////////
+            // Sum up event weight here (after all corrs) ///
+            /////////////////////////////////////////////////
+            dSumOfGenEvtWeight += eventWeight;
+            //cout << "[CHECKING] SumUp eventWeight after all correction dSumOfGenEvtWeight = " << dSumOfGenEvtWeight << endl; 
+        }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// STEP 1. Fill Histo before Selection ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -413,13 +414,15 @@ void NanoAnalyzer::Analyze() {
         hW_MT_PFMET_corr_after->Fill(W_MT_PFMET_corr, eventWeight);
     } // End of event loop
 
-    //////////////////////////////////////////////////////////
-    ///////// Fill SumOfGenEvtWeight after event loop ////////
-    //////////////////////////////////////////////////////////
-    hGenEvtWeight->SetBinContent(1, dSumOfGenEvtWeight);
+    if(isMC){
+        //////////////////////////////////////////////////////////
+        ///////// Fill SumOfGenEvtWeight after event loop ////////
+        //////////////////////////////////////////////////////////
+        hGenEvtWeight->SetBinContent(1, dSumOfGenEvtWeight);
 
-    cout << "[Info] NanoAnalyzer::Analyze() - End of event loop" << endl;
-    cout << "[Info] NanoAnalyzer::Analyze() - Total sum of weight: " << fixed << setprecision(2) << dSumOfGenEvtWeight << endl;
+        cout << "[Info] NanoAnalyzer::Analyze() - End of event loop" << endl;
+        cout << "[Info] NanoAnalyzer::Analyze() - Total sum of weight: " << fixed << setprecision(2) << dSumOfGenEvtWeight << endl;
+    }
 }
 
 ////////////////////////////////////////////////////////////
@@ -429,19 +432,18 @@ void NanoAnalyzer::Init() {
     // Declare classes
     cData = new NanoDataLoader(process, DataEra, inputlist, isMC);
     cout << "[Info] NanoAnalyzer::Init() - cData is defined" << endl;
-
-    cPU = new PU(DataEra);
-    cout << "[Info] NanoAnalyzer::Init() - cPU is defined" << endl;
-    cEfficiencySF = new EfficiencySF(DataEra, hName_ID, hName_Iso, hName_Trig);    
-    cout << "[Info] NanoAnalyzer::Init() - cEfficiencySF is defined" << endl;
-    cRochesterCorrection = new RoccoR(RoccorName); // Rocco is initialized here
-    cout << "[Info] NanoAnalyzer::Init() - cRochesterCorrection is defined" << endl;
-
     // Initialize classes
     cData->Init();
-    cPU->Init();
-    cEfficiencySF->Init();
-
+    cRochesterCorrection = new RoccoR(RoccorName); // Rocco is initialized here
+    cout << "[Info] NanoAnalyzer::Init() - cRochesterCorrection is defined" << endl;
+    if(isMC){
+        cPU = new PU(DataEra);
+        cout << "[Info] NanoAnalyzer::Init() - cPU is defined" << endl;
+        cEfficiencySF = new EfficiencySF(DataEra, hName_ID, hName_Iso, hName_Trig);    
+        cout << "[Info] NanoAnalyzer::Init() - cEfficiencySF is defined" << endl;
+        cPU->Init();
+        cEfficiencySF->Init();
+    }
     // Set total events
     nTotalEvents = cData->GetTotalEvents(); 
     cout << "[Info] NanoAnalyzer::Init() - Tree nTotalEvents = " << nTotalEvents << endl;
@@ -473,8 +475,14 @@ void NanoAnalyzer::PrintInitInfo() {
 
 // Simple utility to print percent
 void NanoAnalyzer::PrintProgress(const int currentStep) {    
+    if (nTotalEvents <= 0) {
+        cerr << "[ERROR] nTotalEvents is zero or negative. Cannot calculate progress." << endl;
+        return;
+    }
+
     float percent = (float)currentStep / nTotalEvents;
     int width = 70;
+
     cout << "[";
     int pos = width * percent;
     for (int i = 0; i < width; i++) {
@@ -732,7 +740,9 @@ NanoAnalyzer::~NanoAnalyzer() {
 void NanoAnalyzer::Clear() {
     // delete classes
     delete cData;
-    delete cPU;
-    delete cEfficiencySF;
+    if(isMC){
+        delete cPU;
+        delete cEfficiencySF;
+    }
     delete cRochesterCorrection;
 }
