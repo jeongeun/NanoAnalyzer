@@ -29,9 +29,8 @@ The main program (`src/Main.cc`) receives the configuration parameters (such as 
 Follow these steps to set up your environment and repositories: (worked in KNU_T3)
 
 ```bash
-# Clone the necessary repositories
-git clone https://github.com/jeongeun/NanoAnalyzer.git
-
+# Clone nanoanalyzer_v0 branch in the necessary repositories 
+git clone -b nanoanalyzer_v0 --single-branch https://github.com/jeongeun/NanoAnalyzer.git
 
 # Change directory to NanoAnalyzer
 cd NanoAnalyzer
@@ -132,7 +131,7 @@ More to be updated here.
 - [Muon-Rochcor](https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon)
 - [Muon-SF](https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022)
 - [EGMPOG](https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPOG)
-- [EGM-SFnSS] (https://twiki.cern.ch/twiki/bin/view/CMS/EgammSFandSSRun3)
+- [EGM-SFnSS](https://twiki.cern.ch/twiki/bin/view/CMS/EgammSFandSSRun3)
 - [NoiseFilter](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#Run3_recommendations)
 - [MET XY corr](https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETRun2Corrections#xy_Shift_Correction_MET_phi_modu)
 - [JME POG](https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetMET#)
@@ -149,7 +148,7 @@ More to be updated here.
 - [LHC Higgs Xsec](https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsXSBR)
 - [CMS CADI search](https://cms.cern.ch/iCMS/analysisadmin/cadilines)
 - [iCMS-AN search](https://icms.cern.ch/tools/publications/notes/entries/AN/)
-- [T2KNU-manual] (https://t2-cms.knu.ac.kr/wiki/index.php/HTCondor)
+- [T2KNU-manual](https://t2-cms.knu.ac.kr/wiki/index.php/HTCondor)
 
 
 ---

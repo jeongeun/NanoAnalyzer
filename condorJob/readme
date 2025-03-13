@@ -1,0 +1,41 @@
+https://t2-cms.knu.ac.kr/wiki/index.php/HTCondor (HTCondor recipe)
+
+> voms-proxy-init -voms cms -valid 100:
+Enter GRID pass phrase:
+Your proxy is valid until Sat Mar 15 07:11:51 2025
+
+> ls -alrt /tmp/x509up*
+-rw------- 1 jelee cms  10K Mar 11 03:11 /tmp/x509up_uxxxx
+
+
+
+## usage: makeCondorScript.py [-h] -d DIR [-e ERA] [-c {Base,PU,Rocco,ID,ISO,All}]
+## using "{arg.era}.list"
+## make run_{process}.sh and job_{process}.jdl
+
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c Base
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c PU
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c Rocco
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c ID
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c ISO
+python3 makeCondorScript.py -d condorOut -e 2022preEE -c All
+
+
+
+
+
+
+
+If you want to add different list file please modity makeCondorScript.py
+L108:
+    # Search Process
+    list_file = f"/d0/scratch/jelee/workspace/nanoaod-earlyRun3/WP241121/teststand/NanoAnalyzer/input/list_{args.era}_preTest.txt"
+
+
+
+
+
+## condor_submit job.jdl
+
+./submitall.sh condorOut/2022preEE
+
