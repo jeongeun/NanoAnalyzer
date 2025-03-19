@@ -154,7 +154,7 @@ class NanoDataLoader {
         TTreeReaderArray<Int_t>*   LHEPart_spin    = nullptr;
         TTreeReaderArray<Float_t>* LHE_Vpt         = nullptr;
         TTreeReaderValue<Float_t>* LHE_HT          = nullptr;
-        TTreeReaderValue<Float_t>* LHE_HTincoming  = nullptr;
+        TTreeReaderValue<Float_t>* LHE_HTIncoming  = nullptr;
 
         // GenMET info
         TTreeReaderArray<Float_t>* GenMET_pt  = nullptr;
