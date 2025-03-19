@@ -231,21 +231,21 @@ void NanoDataLoader::LoadBranches() {
 
         // LHEPart (in case MG5,aMCatNLO samples)
         if (isMC && (process.find("WtoLNu-") != string::npos) ) {
-            LHEPdfWeight             = new TTreeReaderValue<Float_t>(*fReader, "LHEPdfWeight");//PDF variation weights (w_var/w_nominal) for LHAPDF IDs 325300-325402     
-            LHEScaleWeight           = new TTreeReaderValue<Float_t>(*fReader, "LHEScaleWeight");//Scale variation weights (w_var / w_nominal); [0] is MUF="0.5" MUR="0.5"; [1] is MUF="1.0" MUR="0.5"; [2] is MUF="2.0" MUR="0.5"; [3] is MUF="0.5" MUR="1.0"; [4] is MUF="2.0" MUR="1.0"; [5] is MUF="0.5" MUR="2.0"; [6] is MUF="1.0" MUR="2.0"; [7] is MUF="2.0" MUR="2.0" 
+            LHEPdfWeight             = new TTreeReaderArray<Float_t>(*fReader, "LHEPdfWeight");//PDF variation weights (w_var/w_nominal) for LHAPDF IDs 325300-325402     
+            LHEScaleWeight           = new TTreeReaderArray<Float_t>(*fReader, "LHEScaleWeight");//Scale variation weights (w_var / w_nominal); [0] is MUF="0.5" MUR="0.5"; [1] is MUF="1.0" MUR="0.5"; [2] is MUF="2.0" MUR="0.5"; [3] is MUF="0.5" MUR="1.0"; [4] is MUF="2.0" MUR="1.0"; [5] is MUF="0.5" MUR="2.0"; [6] is MUF="1.0" MUR="2.0"; [7] is MUF="2.0" MUR="2.0" 
             LHEWeight_originalXWGTUP = new TTreeReaderValue<Float_t>(*fReader, "LHEWeight_originalXWGTUP"); //Nominal event weight in the LHE file
-            nLHEPart                 = new TTreeReaderValue<UInt_t>( *fReader, "nLHEPart");
-            LHEPart_pt               = new TTreeReaderValue<Float_t>(*fReader, "LHEPart_pt");
-            LHEPart_eta              = new TTreeReaderValue<Float_t>(*fReader, "LHEPart_eta");
-            LHEPart_phi              = new TTreeReaderValue<Float_t>(*fReader, "LHEPart_phi");
-            LHEPart_mass             = new TTreeReaderValue<Float_t>(*fReader, "LHEPart_mass");
-            LHEPart_pdgId            = new TTreeReaderValue<Int_t>(  *fReader, "LHEPart_pdgId");
-            LHEPart_status           = new TTreeReaderValue<Int_t>(  *fReader, "LHEPart_status");//LHE particle status; -1:incoming, 1:outgoing
-            LHEPart_spin             = new TTreeReaderValue<Int_t>(  *fReader, "LHEPart_spin");
+            nLHEPart                 = new TTreeReaderValue<Int_t>( *fReader, "nLHEPart");
+            LHEPart_pt               = new TTreeReaderArray<Float_t>(*fReader, "LHEPart_pt");
+            LHEPart_eta              = new TTreeReaderArray<Float_t>(*fReader, "LHEPart_eta");
+            LHEPart_phi              = new TTreeReaderArray<Float_t>(*fReader, "LHEPart_phi");
+            LHEPart_mass             = new TTreeReaderArray<Float_t>(*fReader, "LHEPart_mass");
+            LHEPart_pdgId            = new TTreeReaderArray<Int_t>(  *fReader, "LHEPart_pdgId");
+            LHEPart_status           = new TTreeReaderArray<Int_t>(  *fReader, "LHEPart_status");//LHE particle status; -1:incoming, 1:outgoing
+            LHEPart_spin             = new TTreeReaderArray<Int_t>(  *fReader, "LHEPart_spin");
 
-            LHE_Vpt                  = new TTreeReaderValue<Float_t>(*fReader, "LHE_Vpt");//pT of the W or Z boson at LHE step
+            LHE_Vpt                  = new TTreeReaderArray<Float_t>(*fReader, "LHE_Vpt");//pT of the W or Z boson at LHE step
             LHE_HT                   = new TTreeReaderValue<Float_t>(*fReader, "LHE_HT");//HT, scalar sum of parton pTs at LHE step
-            LHE_HTincoming           = new TTreeReaderValue<Float_t>(*fReader, "LHE_HTincoming");//HT, scalar sum of parton pTs at LHE step, restricted to partons
+            LHE_HTIncoming           = new TTreeReaderValue<Float_t>(*fReader, "LHE_HTIncoming");//HT, scalar sum of parton pTs at LHE step, restricted to partons
         }
     }
 
@@ -323,7 +323,7 @@ void NanoDataLoader::Clear() {
     delete LHEPart_spin;      
     delete LHE_Vpt;       
     delete LHE_HT;        
-    delete LHE_HTincoming;
+    delete LHE_HTIncoming;
     delete GenMET_phi;
     delete GenMET_pt;
 }
