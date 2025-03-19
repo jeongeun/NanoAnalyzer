@@ -125,8 +125,8 @@ class NanoDataLoader {
         // Generator-Level Weight
         TTreeReaderValue<Float_t>* GenWeight                = nullptr;
         TTreeReaderValue<Float_t>* LHEWeight_originalXWGTUP = nullptr;
-        TTreeReaderValue<Float_t>* LHEPdfWeight             = nullptr;
-        TTreeReaderValue<Float_t>* LHEScaleWeight           = nullptr;
+        TTreeReaderArray<Float_t>* LHEPdfWeight             = nullptr;
+        TTreeReaderArray<Float_t>* LHEScaleWeight           = nullptr;
 
         // Pileup info
         TTreeReaderValue<Int_t>*   Pileup_nPU      = nullptr;
@@ -144,15 +144,15 @@ class NanoDataLoader {
         TTreeReaderArray<Short_t>*  GenPart_genPartIdxMother = nullptr;
 
         // LHEParticle info
-        TTreeReaderValue<UInt_t>*  nLHEPart        = nullptr;
-        TTreeReaderValue<Float_t>* LHEPart_pt      = nullptr;
-        TTreeReaderValue<Float_t>* LHEPart_eta     = nullptr;
-        TTreeReaderValue<Float_t>* LHEPart_phi     = nullptr;
-        TTreeReaderValue<Float_t>* LHEPart_mass    = nullptr;
-        TTreeReaderValue<Int_t>*   LHEPart_pdgId   = nullptr;
-        TTreeReaderValue<Int_t>*   LHEPart_status  = nullptr;
-        TTreeReaderValue<Int_t>*   LHEPart_spin    = nullptr;
-        TTreeReaderValue<Float_t>* LHE_Vpt         = nullptr;
+        TTreeReaderValue<Int_t>*  nLHEPart        = nullptr;
+        TTreeReaderArray<Float_t>* LHEPart_pt      = nullptr;
+        TTreeReaderArray<Float_t>* LHEPart_eta     = nullptr;
+        TTreeReaderArray<Float_t>* LHEPart_phi     = nullptr;
+        TTreeReaderArray<Float_t>* LHEPart_mass    = nullptr;
+        TTreeReaderArray<Int_t>*   LHEPart_pdgId   = nullptr;
+        TTreeReaderArray<Int_t>*   LHEPart_status  = nullptr;
+        TTreeReaderArray<Int_t>*   LHEPart_spin    = nullptr;
+        TTreeReaderArray<Float_t>* LHE_Vpt         = nullptr;
         TTreeReaderValue<Float_t>* LHE_HT          = nullptr;
         TTreeReaderValue<Float_t>* LHE_HTincoming  = nullptr;
 
